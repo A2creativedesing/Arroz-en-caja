@@ -1,0 +1,274 @@
+{
+  "brand": {
+    "name": "Arroz en Caja",
+    "tagline": "Es natural que te guste",
+    "hashtag": "#EsNaturalQueTeGuste",
+    "logo": "img/logo.png",
+    "logoRemote": "https://arrozencaja.com/wp-content/uploads/2021/04/LogoWeb.png",
+    "seal": "img/sello-2021.png",
+    "sealAlt": "Sello Mejores arroces 2021"
+  },
+  "banner": "",
+  "hero": {
+    "title": "Arroz recién hecho, en su caja.",
+    "sub": "Cocinamos por encargo arroces y fideuás con hora de entrega marcada. Tú solo pones la mesa.",
+    "image": "img/hero-pans.webp",
+    "cta": "Haz tu pedido",
+    "image2": "img/menu-caja.webp",
+    "image2Alt": "Arroz en su caja con bebida y salsas",
+    "imageAlt": "Arroces recién cocinados en sus paelleras"
+  },
+  "why": {
+    "title": "¿Por qué Arroz en Caja?",
+    "p1": "Porque ofrecemos la **máxima calidad en arroces y fideuás** directamente de nuestras cocinas a la mesa de nuestros clientes.",
+    "p2": "Como parte de una **celebración**, un **picnic** en el campo, para comer **en la oficina**… **nosotros nos encargamos de cocinar**, para que cada cliente pueda disfrutar al máximo de su momento.",
+    "callout": "**Todos nuestros platos se cocinan por encargo**",
+    "p3": "**Cada una de nuestras elaboraciones** tiene «nombre y apellidos» y por tanto un tiempo de preparación definido y una **hora de entrega marcada**.",
+    "image": "img/menu-caja.webp"
+  },
+  "innovation": {
+    "title": "Innovación",
+    "p1": "Porque no existe un único camino para llegar a un lugar, **tampoco existe un único método para cocinar un plato** con los mejores resultados.",
+    "p2": "En **Arroz en Caja** preparamos nuestros arroces y fideuás mediante un **sistema de cocinado y envasado** exclusivos que garantizan un producto delicioso y equilibrado en **sabor y texturas**.",
+    "image": "img/hero-pans.webp"
+  },
+  "quality": {
+    "title": "Calidad como seña de identidad",
+    "p1": "La **variedad de arroz** que utilizamos y los **ingredientes naturales** empleados, aseguran un **producto de calidad superior** tanto para el envío a domicilio como para la retirada en nuestro local.",
+    "image": "img/textura-arroz2.webp"
+  },
+  "eco": {
+    "title": "Arroz en Caja y el Medio Ambiente",
+    "p1": "**Nuestro sistema de embalaje** **es 100% reciclable** y permite una conservación excelente de nuestros platos **sin alterar texturas y sabores**, manteniéndolos en perfecto estado durante su transporte **hasta su consumo.**",
+    "p2": "Además, **nuestro recipiente** elaborado en aluminio **no debe ser retornado, es reutilizable y también 100% reciclable.**",
+    "image": "https://arrozencaja.com/arrozencajaMedia/6_OtrasImagenes/cajas.jpg"
+  },
+  "how": {
+    "title": "Pedir es muy fácil",
+    "steps": [
+      {
+        "verb": "Elige",
+        "text": "Tu arroz o fideuá favorito en la carta."
+      },
+      {
+        "verb": "Pide",
+        "text": "Por nuestra web, por teléfono o por WhatsApp."
+      },
+      {
+        "verb": "Disfruta",
+        "text": "Recógelo en tu local o te lo llevamos a casa. No cocines, de eso nos encargamos nosotros."
+      }
+    ],
+    "delivery": "Los envíos a domicilio tienen un plazo mínimo de 65 minutos en arroces, fideuás y asados, desde la solicitud hasta la recepción. El envío cuesta 3,25 € + IVA en Ávila, Colmenar Viejo y Tres Cantos, y se paga al hacer el pedido."
+  },
+  "stats": [
+    {
+      "value": 65,
+      "suffix": " min",
+      "label": "plazo mínimo de entrega a domicilio"
+    },
+    {
+      "value": 100,
+      "suffix": " %",
+      "label": "envase reciclable y reutilizable"
+    },
+    {
+      "value": 3,
+      "suffix": "",
+      "label": "locales: Ávila, Colmenar Viejo y Tres Cantos"
+    }
+  ],
+  "contact": {
+    "whatsapp": "34660969330",
+    "facebook": "https://www.facebook.com/arrozencaja",
+    "instagram": "https://www.instagram.com/arrozencaja/",
+    "legal": [
+      {
+        "label": "Aviso legal",
+        "url": "https://arrozencaja.com/aviso-legal/"
+      },
+      {
+        "label": "Política de privacidad",
+        "url": "https://arrozencaja.com/politica-privacidad/"
+      },
+      {
+        "label": "Política de cookies",
+        "url": "https://arrozencaja.com/politica-de-cookies/"
+      },
+      {
+        "label": "Política de envíos",
+        "url": "https://arrozencaja.com/politica-de-envios/"
+      },
+      {
+        "label": "Cancelaciones y devoluciones",
+        "url": "https://arrozencaja.com/reembolso_devoluciones/"
+      }
+    ]
+  },
+  "storeOrder": [
+    "avila",
+    "colmenar",
+    "trescantos"
+  ],
+  "stores": {
+    "avila": {
+      "name": "Ávila",
+      "address": "C/ Fray Gil, 5, 05003 Ávila",
+      "phone": "920 26 29 43 · 683 18 32 58",
+      "hours": "12:00-16:00, 20:00-23:00",
+      "hoursNote": "Cerrado los lunes. Horario en local: 12:00 a 16:00 y 20:00 a 23:00. Horario de servicio (pedidos): 12:00 a 16:00 y 19:30 a 23:00.",
+      "mapsUrl": "",
+      "orderUrl": "https://arrozencaja.com/tiendas/avila/realizar-pedido",
+      "svc": {
+        "0": "12:00-16:00,19:30-23:00",
+        "1": "",
+        "2": "12:00-16:00,19:30-23:00",
+        "3": "12:00-16:00,19:30-23:00",
+        "4": "12:00-16:00,19:30-23:00",
+        "5": "12:00-16:00,19:30-23:00",
+        "6": "12:00-16:00,19:30-23:00"
+      },
+      "closedDays": "Cerrado los lunes"
+    },
+    "colmenar": {
+      "name": "Colmenar Viejo",
+      "address": "C/ del Sombrerero, 24, 28770 Colmenar Viejo, Madrid",
+      "phone": "917 82 35 38 · 660 96 93 30",
+      "hours": "12:00-16:00, 19:30-23:00",
+      "hoursNote": "Todos los días. Horario en local: 12:00 a 16:00 y 20:00 a 23:00. Horario de servicio: 12:00 a 16:00 y 19:30 a 23:00.",
+      "mapsUrl": "https://maps.app.goo.gl/HuF5HH96MDAsPNBV8",
+      "orderUrl": "https://arrozencaja.com/tiendas/colmenar/realizar-pedido",
+      "svc": {
+        "0": "12:00-16:00,19:30-23:00",
+        "1": "12:00-16:00,19:30-23:00",
+        "2": "12:00-16:00,19:30-23:00",
+        "3": "12:00-16:00,19:30-23:00",
+        "4": "12:00-16:00,19:30-23:00",
+        "5": "12:00-16:00,19:30-23:00",
+        "6": "12:00-16:00,19:30-23:00"
+      },
+      "closedDays": "Abierto todos los días"
+    },
+    "trescantos": {
+      "name": "Tres Cantos",
+      "address": "C/ del Viento, 7, 28760 Tres Cantos, Madrid",
+      "phone": "911 38 05 55 · 683 58 99 75",
+      "hours": "12:00-16:00, 20:00-23:00",
+      "hoursNote": "Lunes a miércoles solo mediodía (12:00 a 16:00); jueves a domingo mediodía y noche. Horario de servicio: 12:00 a 16:00 y 19:30 a 23:00 (jueves a domingo).",
+      "mapsUrl": "https://maps.app.goo.gl/n2kTq9SBvZ8EkzWh7",
+      "orderUrl": "https://arrozencaja.com/tiendas/trescantos/realizar-pedido",
+      "svc": {
+        "0": "12:00-16:00,19:30-23:00",
+        "1": "12:00-16:00",
+        "2": "12:00-16:00",
+        "3": "12:00-16:00",
+        "4": "12:00-16:00,19:30-23:00",
+        "5": "12:00-16:00,19:30-23:00",
+        "6": "12:00-16:00,19:30-23:00"
+      },
+      "closedDays": "Lunes a miércoles solo mediodía"
+    }
+  },
+  "franchise": {
+    "title": "Abre tu franquicia",
+    "lead": "Te ofrecemos un modelo de negocio exclusivo, innovador, sencillo con una **inversión reducida y una elevada rentabilidad**.",
+    "sub": "Ponemos a tu disposición nuestra marca, nuestros proveedores homologados y nuestro proceso de elaboración único.",
+    "image": "https://arrozencaja.com/arrozencajaMedia/6_OtrasImagenes/Franquicia.jpg",
+    "stepsTitle": "Pasos a seguir para abrir tu tienda de Arroz en Caja",
+    "steps": [
+      "**Entrevista personal** con nuestro departamento de expansión.",
+      "**Visita Arroz en Caja**, para conocer de primera mano y explicarte en detalle el modelo de negocio.",
+      "**Ayuda y asesoramiento** para valorar la viabilidad del proyecto.",
+      "**Selección y contratación** del punto de venta, búsqueda de financiación, etc.",
+      "**Firma** de contrato.",
+      "**Formación** inicial."
+    ],
+    "faq": [
+      {
+        "q": "¿Qué requisitos necesito reunir para abrir mi propio Arroz en Caja?",
+        "a": "Capacidad de gestión, capacidad económica, vocación de servicio al cliente y compromiso con la marca."
+      },
+      {
+        "q": "¿Qué formación y apoyo recibiré?",
+        "a": "Nuestro equipo te acompañará en todo el proceso, desde la implantación, montaje y apertura de la tienda pasando por la negociación con plataformas de reparto y la formación inicial. También dispondrás de una plataforma para realizar los pedidos, y un soporte y asesoramiento constante."
+      },
+      {
+        "q": "¿Cuánto dura el contrato de franquicia?",
+        "a": "5 años prorrogables."
+      }
+    ]
+  },
+  "assistant": {
+    "name": "Asistente de Arroz en Caja",
+    "welcome": "Hola, soy el asistente de Arroz en Caja. Pregúntame por la carta, los alérgenos, los horarios o cómo pedir.",
+    "notes": ""
+  },
+  "order": {
+    "leadMin": 65,
+    "leadNote": "Plazo mínimo de 65 minutos desde que haces el pedido.",
+    "slotStep": 30,
+    "daysAhead": 14,
+    "defQty": {
+      "arroces": 2
+    },
+    "shipping": {
+      "fee": 3.25,
+      "label": "3,25 € + IVA",
+      "note": "El envío a domicilio cuesta 3,25 € + IVA y se paga al hacer el pedido."
+    },
+    "payments": [
+      {
+        "id": "card",
+        "label": "Tarjeta (Stripe)"
+      },
+      {
+        "id": "link",
+        "label": "Link de Stripe"
+      }
+    ],
+    "termsUrl": "https://arrozencaja.com/reembolso_devoluciones/",
+    "privacyUrl": "https://arrozencaja.com/politica-privacidad/",
+    "demo": true
+  },
+  "comms": {
+    "prefix": "34",
+    "preferred": "whatsapp",
+    "perStore": {},
+    "templates": {
+      "confirmar": "¡Hola, {nombre}! Tu pedido #{pedido} ha sido confirmado en Arroz en Caja. Ya estamos organizando su preparación. ¡Gracias por confiar en nosotros!",
+      "preparacion": "¡Hola, {nombre}! Tu pedido #{pedido} ya está en preparación. Estamos trabajando para que lo disfrutes muy pronto.",
+      "listo": "¡Hola, {nombre}! Tu pedido #{pedido} ya está listo para recoger. ¡Te esperamos!",
+      "encamino": "¡Hola, {nombre}! Tu pedido #{pedido} ya está en camino. ¡Gracias por elegir Arroz en Caja!",
+      "entregado": "¡Hola, {nombre}! Esperamos que disfrutes tu pedido. Muchas gracias por confiar en nosotros."
+    },
+    "quick": [
+      "Hola, {nombre}. Sobre tu pedido #{pedido}: ",
+      "¿Nos confirmas tu dirección completa (piso, puerta y timbre)?",
+      "Tu pedido se retrasa unos 15 minutos. Sentimos las molestias.",
+      "Falta un detalle de tu pedido: "
+    ]
+  },
+  "ui": {
+    "heroLink": "Ver locales y horarios",
+    "trust": [
+      "Cocinado por encargo",
+      "Envío a domicilio desde 65 min",
+      "Envase 100% reciclable"
+    ],
+    "marquee": [
+      "Cocinado por encargo",
+      "Hora de entrega marcada",
+      "Envase 100% reciclable",
+      "Arroces y fideuás",
+      "Es natural que te guste"
+    ],
+    "cartaTitle": "Haz tu pedido",
+    "cartaSub": "Elige tu local, añade tus platos y finaliza en un minuto. Precios con IVA incluido.",
+    "howCta": "Elegir mi local",
+    "storesTitle": "Dónde estamos",
+    "franchiseCta": "Quiero más información",
+    "faqTitle": "Preguntas y respuestas",
+    "contactTitle": "Contacta con nosotros",
+    "footNote": "Precios con IVA incluido. Los alérgenos se indican solo donde tenemos la ficha confirmada."
+  }
+}
