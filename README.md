@@ -1,31 +1,46 @@
-# Arroz en Caja · plantilla web
+# Arroz en Caja · plantilla web con panel de administrador
 
-Plantilla de demostración de una web de pedidos para un restaurante: carta por local, carrito, pedido de prueba y un panel para el dueño. Diseño cobre y crema, pensada para móvil.
+Plantilla de una web de pedidos para un restaurante: carta por local, carrito, pedido de prueba y un **panel privado para el dueño**. Diseño cobre y crema, pensado para móvil.
 
-**Ver la web:** https://a2creativedesing.github.io/Arroz-en-caja/
+**Web:** https://a2creativedesing.github.io/Arroz-en-caja/
 
 ## Qué es y qué no es
 
-- Es una **plantilla / prototipo**. El pago es una demostración: no cobra, no pide datos de tarjeta y no envía ningún pedido a nadie.
-- Es HTML, CSS y JavaScript sin servidor. No necesita instalar nada.
-- El panel del dueño (`admin.html` y la carpeta `panel/`) **solo funciona dentro de Claude** (usa su base de datos y la cuenta del propietario). En esta versión de GitHub Pages queda cerrado y el enlace «Acceso» no aparece.
-- Los textos, precios, fotos y el nombre «Arroz en Caja» son del ejemplo. Cámbialos por los tuyos antes de usarla con otro negocio.
+- Es una **plantilla / prototipo**. El pago es una demostración: no cobra, no pide datos de tarjeta y no avisa a ningún local real.
+- La web es HTML, CSS y JavaScript sin servidor. **GitHub Pages solo guarda archivos**, así que el panel necesita un pequeño servidor aparte: aquí se usa [Supabase](https://supabase.com) (plan gratuito).
+- Si `config.js` está vacío, la web funciona en **modo demostración** (sin panel, sin guardado) y el enlace «Acceso» no aparece.
+
+## Cómo se protege el panel
+
+- Entra solo el administrador, con **correo + contraseña + código de 6 cifras de una app de autenticador** (como una banca online). El teléfono lo recuerda 14 días si lo marcas.
+- La protección está en el **servidor**, no en la página: unas reglas de Row Level Security (`backend/001_arroz_en_caja.sql`) hacen que solo una sesión de administrador con segundo factor pueda leer pedidos o cambiar textos, precios y estados. Un cliente solo puede guardar y leer **su propio pedido**.
+- La clave que va en `config.js` es la **«publishable»**: es pública por diseño (cualquiera puede verla en el navegador). Sin las reglas no protegería nada; con ellas solo permite lo que dice el SQL. **Nunca pegues la clave `service_role` o `secret`** en este repositorio.
+- Quien vea el código sabrá cómo funciona, pero no puede entrar sin tu contraseña y tu móvil.
+
+## Puesta en marcha (una vez, ~15 minutos)
+
+1. En Supabase crea un proyecto (región en la UE, por ejemplo París o Fráncfort).
+2. En **SQL Editor** pega y ejecuta `backend/001_arroz_en_caja.sql`.
+3. En **Authentication → Users → Add user → Create new user**: tu correo y una **contraseña larga que solo tú sepas** (marca «Auto Confirm User»).
+4. En **SQL Editor** ejecuta `backend/002_alta_admin.sql` cambiando el correo por el tuyo.
+5. En **Project Settings → API** copia la *Project URL* y la clave *publishable* y pégalas en `config.js`. Sube el cambio.
+6. Recomendado, en **Authentication**: desactiva «Allow new users to sign up», sube la longitud mínima de contraseña a 12 y comprueba que el segundo factor TOTP está activado (los nombres de los ajustes pueden variar).
+7. Abre la web → **Acceso** (pie de página) o `admin.html`. La primera vez te enseñará un QR: escanéalo con tu app de autenticador y escribe el código.
+
+## Límites (para ser honestos)
+
+- Los «14 días» de sesión los controla el navegador; si necesitas que el servidor cierre sesiones a la fuerza, hay que activarlo en los ajustes de Supabase (algunas opciones son de pago).
+- Cualquiera puede enviar pedidos de prueba a la demo. Hay un freno de 40 por minuto, pero no sustituye a una protección antispam si lo usas en serio.
+- Antes de usarla con clientes reales: política de privacidad (RGPD), pagos reales (por ejemplo Stripe Checkout) y copias de seguridad.
 
 ## Archivos
 
 | Qué | Dónde |
 | --- | --- |
 | Página | `index.html`, `styles.css`, `app.js`, `art.js` |
-| Textos de la web | `data/site.json` |
-| Carta y precios | `data/menu.json` |
+| Textos y carta | `data/site.json`, `data/menu.json` |
 | Imágenes e iconos | `img/`, `icons/` |
-| Panel del dueño (solo en Claude) | `admin.html`, `panel/`, `manifest.webmanifest`, `sw.js` |
-
-## Usarla como plantilla
-
-1. Pulsa «Use this template» o descarga el repositorio.
-2. Cambia `data/site.json` (textos, locales, horarios) y `data/menu.json` (platos y precios).
-3. Sustituye las imágenes de `img/` y `icons/`.
-4. Súbela a GitHub Pages: Settings → Pages → Deploy from a branch → `main` / raíz.
-
-Para una tienda real hace falta un servidor con pagos (por ejemplo WooCommerce con Stripe) y un panel con acceso protegido. Esta plantilla solo muestra el diseño y el flujo.
+| Panel del dueño | `admin.html`, `panel/` (también se abre desde «Acceso») |
+| Conexión con el servidor | `config.js` (datos públicos), `backend.js` |
+| Servidor (Supabase) | `backend/001_arroz_en_caja.sql`, `backend/002_alta_admin.sql` |
+| App instalable | `manifest.webmanifest`, `sw.js` |

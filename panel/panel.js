@@ -131,6 +131,14 @@
   /* Acceso: cerrar sesión y clave opcional (la lógica vive en la web: AEC.access) */
   let accHas = null, accBusy = false;
   function accCard() {
+    if (A.access.server) {
+      return `<section class="card"><h2>Acceso</h2><p class="muted sm">Sesión de ${esc(A.access.account() || 'administrador')}. Entras con contraseña y código del autenticador.</p>
+      <div class="acts"><button class="btn ghost" type="button" data-act="signout">CERRAR SESIÓN</button></div>
+      <details class="sub"><summary>Cambiar la contraseña</summary>
+        <label class="f"><span>Contraseña nueva (mínimo 12 caracteres)</span><input id="pw1" type="password" autocomplete="new-password"></label>
+        <label class="f"><span>Repite la contraseña</span><input id="pw2" type="password" autocomplete="new-password"></label>
+        <div class="acts"><button class="btn" type="button" data-act="pwSave">GUARDAR CONTRASEÑA</button></div></details></section>`;
+    }
     if (accHas === null && !accBusy) {
       accBusy = true;
       A.access.has().then((v) => { accHas = !!v; accBusy = false; if (tab === 'config') drawPanel(true); }).catch(() => { accHas = false; accBusy = false; });
@@ -969,6 +977,14 @@
     resetText(t) { const g = TEXTS[+t.dataset.v]; saveSite((o) => { g.fs.forEach((f) => resetLeaf(o, f[0])); }, 'Textos originales restaurados').then(() => drawPanel(true)); },
     editPage() { location.hash = '#inicio'; setTimeout(startEdit, 150); },
     signout() { A.access.signOut(); },
+    async pwSave() {
+      const x = ($('#pw1') || {}).value || '', y = ($('#pw2') || {}).value || '';
+      if (x.length < 12) { A.toast('La contraseña necesita al menos 12 caracteres.'); return; }
+      if (x !== y) { A.toast('Las dos contraseñas no coinciden.'); return; }
+      if (!online()) { A.toast('Sin conexión: no se guardó.'); return; }
+      try { await A.access.changePassword(x); logAct('Contraseña del panel cambiada'); A.toast('Contraseña guardada'); drawPanel(true); }
+      catch (e) { A.toast(e && e.code === 'weak' ? 'Esa contraseña es demasiado fácil de adivinar. Prueba una más larga.' : e && e.code === 'same' ? 'Es la misma contraseña de antes.' : 'No se pudo cambiar la contraseña. Vuelve a entrar e inténtalo.'); }
+    },
     async pinSave() {
       const x = ($('#pn1') || {}).value || '', y = ($('#pn2') || {}).value || '';
       if (!/^\d{4,6}$/.test(x)) { A.toast('La clave son de 4 a 6 números.'); return; }

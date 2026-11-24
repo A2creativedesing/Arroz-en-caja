@@ -938,9 +938,81 @@ ${s.assistant.notes ? 'Información adicional del negocio: ' + s.assistant.notes
   let accTok = 0, gateTok = 0, accBad = 0, accLock = 0;
   function showWait() { const r = accRoot(); r.hidden = false; r.innerHTML = accShell('<h1 id="accT">Comprobando tu cuenta…</h1>'); }
   function hideAccess() { const r = $('#accessRoot'); if (r) r.hidden = true; }
+
+  /* Versión con servidor propio (GitHub Pages + Supabase): correo + contraseña + código del autenticador.
+     Lo que de verdad protege los datos son las reglas del servidor; esta pantalla solo pide las credenciales. */
+  const SRV_MSG = {
+    bad: 'Correo o contraseña incorrectos, o esta cuenta aún no es de administrador.',
+    code: 'Código incorrecto o caducado. Espera al siguiente e inténtalo otra vez.',
+    limit: 'Demasiados intentos. Espera unos minutos.',
+    net: 'No hay conexión con el servidor. Inténtalo de nuevo.',
+    unconfirmed: 'Falta confirmar el correo de esta cuenta.',
+    other: 'No se ha podido entrar. Inténtalo de nuevo.',
+  };
+  function showServerAccess(r) {
+    const A = window.AEC_AUTH;
+    if (S.isOwner) { location.hash = '#panel'; return; }
+    const say = (m) => { const e = $('#accErr'); if (e) { e.textContent = m; e.hidden = !m; } };
+    const lockedMsg = () => (Date.now() < accLock ? 'Demasiados intentos. Espera ' + Math.ceil((accLock - Date.now()) / 1000) + ' s.' : '');
+    const miss = () => { accBad++; if (accBad >= 5) { accBad = 0; accLock = Date.now() + 30000; } };
+    let remember = true;
+    const codeField = '<label class="field"><span>Código de 6 cifras</span><input id="accCode" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="7" autocomplete="one-time-code" enterkeyhint="go"></label><p class="acc-err" id="accErr" role="alert" hidden></p>';
+    const wireCode = () => {
+      $('#accCodeForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const code = ($('#accCode').value || '').replace(/\D/g, ''), btn = e.target.querySelector('button[type=submit]');
+        if (lockedMsg()) { say(lockedMsg()); return; }
+        if (code.length !== 6) { say('El código tiene 6 cifras.'); return; }
+        const label = btn.textContent; btn.disabled = true; btn.textContent = 'Comprobando…';
+        try {
+          await A.verify(code, remember);
+          accBad = 0; S.isOwner = true; S.canEdit = true; S.unlocked = true; location.hash = '#panel';
+        } catch (err) { miss(); say(SRV_MSG[err.code] || SRV_MSG.other); $('#accCode').value = ''; btn.disabled = false; btn.textContent = label; }
+      });
+    };
+    const showCode = () => {
+      r.innerHTML = accShell('<h1 id="accT">Código de seguridad</h1><p class="acc-lead">Escribe el código que muestra tu app de autenticador.</p><form class="acc-form" id="accCodeForm" novalidate>' + codeField + '<button class="btn" type="submit">Confirmar</button></form><button class="acc-lnk" id="accOther" type="button">Usar otra cuenta</button>');
+      wireCode();
+      $('#accOther').addEventListener('click', () => { A.signOut().then(showForm); });
+    };
+    const showEnroll = async () => {
+      r.innerHTML = accShell('<h1 id="accT">Activa el código de seguridad</h1><p class="acc-lead">Es un paso único. En una app de autenticador (Google Authenticator, Microsoft Authenticator, Authy, 1Password…) añade una cuenta escaneando este cuadro y escribe el código de 6 cifras que te muestre.</p><div class="acc-qr" id="accQr" aria-live="polite">Preparando…</div><form class="acc-form" id="accCodeForm" novalidate>' + codeField + '<button class="btn" type="submit">Activar y entrar</button></form><button class="acc-lnk" id="accOther" type="button">Usar otra cuenta</button>');
+      wireCode();
+      $('#accOther').addEventListener('click', () => { A.signOut().then(showForm); });
+      try {
+        const q = await A.enroll();
+        const box = $('#accQr'); if (!box) return;
+        box.innerHTML = '<img src="' + esc(q.qr) + '" alt="Código QR para la app de autenticador" width="184" height="184"><p class="acc-sec">¿No puedes escanearlo? Escribe esta clave en la app:<br><code>' + esc(q.secret) + '</code></p>';
+      } catch (err) { const box = $('#accQr'); if (box) box.textContent = ''; say(SRV_MSG[err.code] || SRV_MSG.other); }
+    };
+    const showForm = () => {
+      r.innerHTML = accShell(`<h1 id="accT">Acceso del dueño</h1>${ACC_LEAD}
+        <form class="acc-form" id="accForm" novalidate>
+        <label class="field"><span>Correo</span><input id="accMail" type="email" autocomplete="username" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="next"></label>
+        <label class="field"><span>Contraseña</span><input id="accPw" type="password" autocomplete="current-password" enterkeyhint="go"></label>
+        <p class="acc-err" id="accErr" role="alert" hidden></p>
+        <label class="acc-chk"><input type="checkbox" id="accRem" checked> Mantener este teléfono entrado ${REM_DAYS} días</label>
+        <button class="btn" type="submit">Entrar</button></form>`);
+      $('#accForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const mail = $('#accMail').value.trim(), pw = $('#accPw').value, btn = e.target.querySelector('button[type=submit]');
+        if (lockedMsg()) { say(lockedMsg()); return; }
+        if (!/^\S+@\S+\.\S+$/.test(mail) || !pw) { say('Escribe tu correo y tu contraseña.'); return; }
+        remember = $('#accRem').checked;
+        btn.disabled = true; btn.textContent = 'Entrando…';
+        try {
+          const s = await A.signIn(mail, pw);
+          accBad = 0;
+          if (s.stage === 'enroll') showEnroll(); else showCode();
+        } catch (err) { miss(); say(SRV_MSG[err.code] || SRV_MSG.other); $('#accPw').value = ''; btn.disabled = false; btn.textContent = 'Entrar'; }
+      });
+    };
+    showForm();
+  }
   async function showAccess() {
     const r = accRoot(), tok = ++accTok; r.hidden = false;
     if (!S.capsReady) { showWait(); return; }
+    if (window.AEC_AUTH) { showServerAccess(r); return; }
     if (!S.isOwner) {
       r.innerHTML = accShell('<h1 id="accT">Acceso del dueño</h1><p class="acc-lead">Esta zona es solo para el dueño del restaurante. Si eres tú, abre esta página con la cuenta de Claude propietaria.</p>');
       return;
@@ -998,12 +1070,20 @@ ${s.assistant.notes ? 'Información adicional del negocio: ' + s.assistant.notes
     has: async () => (await pinState()).has,
     setPin: async (pin) => { if (!PIN_RE.test(pin)) throw new Error('clave'); const ver = await savePin(pin); remember('', false); return ver; },
     clearPin: async () => { await pinDoc().delete(); remember('', false); },
-    signOut: () => { S.unlocked = false; remember('', false); location.hash = '#inicio'; },
+    signOut: () => {
+      S.unlocked = false; remember('', false);
+      if (window.AEC_AUTH) { window.AEC_AUTH.signOut().then(() => { location.hash = '#inicio'; location.reload(); }); return; }
+      location.hash = '#inicio';
+    },
+    server: !!window.AEC_AUTH,
+    account: () => (window.AEC_AUTH ? window.AEC_AUTH.email() : ''),
+    changePassword: (pw) => window.AEC_AUTH.changePassword(pw),
   };
 
   function route() {
     const h = location.hash, tok = ++gateTok;
     const wantPanel = h === '#panel', wantAcc = h === '#acceso';
+    if (window.AEC_AUTH && wantPanel && S.capsReady && !S.isOwner) { location.hash = '#acceso'; return; }
     let on = wantPanel && S.capsReady && S.isOwner;
     const waiting = wantPanel && (!S.capsReady || (S.isOwner && !S.unlocked));
     if (on && !S.unlocked) {
@@ -1030,6 +1110,7 @@ ${s.assistant.notes ? 'Información adicional del negocio: ' + s.assistant.notes
     const [db, user, sample, assets] = await Promise.all([get('db'), get('user'), get('sample'), get('assets')]);
     S.cap = { db, user, sample, assets };
     try { if (user) { S.isOwner = !!(await user.isOwner()); S.canEdit = S.isOwner; } } catch (e) { S.canEdit = false; S.isOwner = false; }
+    if (window.AEC_AUTH && S.isOwner) S.unlocked = true;
     S.capsReady = true;
     if (db) {
       const timer = setTimeout(() => { S.dbSlow = true; emit(); }, 10000);

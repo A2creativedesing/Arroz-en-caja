@@ -3,7 +3,7 @@
    NUNCA guarda pedidos, inventario, disponibilidad ni mensajes: eso se pide siempre al servidor (cache: 'no-store'),
    así que una copia antigua no puede mostrarse como si fuera la actual. */
 const VERSION = 'aec-admin-v8';
-const SHELL = ['admin.html', 'styles.css', 'app.js', 'art.js', 'panel/panel.js', 'panel/panel.css', 'data/site.json', 'data/menu.json', 'img/logo.png', 'icons/icon-192.png', 'manifest.webmanifest'];
+const SHELL = ['admin.html', 'styles.css', 'app.js', 'art.js', 'backend.js', 'config.js', 'panel/panel.js', 'panel/panel.css', 'data/site.json', 'data/menu.json', 'img/logo.png', 'icons/icon-192.png', 'manifest.webmanifest'];
 const LIVE = /\/(wp-json|administracion\/api|api|_blob)\//;
 
 self.addEventListener('install', (e) => {
